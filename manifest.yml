@@ -1,0 +1,10 @@
+applications:
+- path: .
+  memory: 512M
+  instances: 1
+  domain: mybluemix.net
+  name: starter-nodejs-server
+  host: starter-nodejs-server
+  disk_quota: 1024M
+  services:
+  - starter-nodejs-server-cloudantNoSQLDB
