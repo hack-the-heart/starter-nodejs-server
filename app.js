@@ -8,8 +8,7 @@ var express = require('express'),
 		allData = require('./routes/allData'),
 		http = require('http'),
 		path = require('path'),
-		fs = require('fs'),
-		database = require("./server/database/dbconn");
+		fs = require('fs');
 
 var app = express();
 
