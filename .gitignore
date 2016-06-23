@@ -1,4 +1,6 @@
-# Logs
+config/local-db-info.json
+
+# Logs 
 logs
 *.log
 npm-debug.log*
