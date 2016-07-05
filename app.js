@@ -3,12 +3,12 @@
 */
 
 var express = require('express'),
-		routes = require('./routes'),
-		user = require('./routes/user'),
-		allData = require('./routes/allData'),
-		http = require('http'),
-		path = require('path'),
-		fs = require('fs');
+routes = require('./routes'),
+user = require('./routes/user'),
+allData = require('./routes/allData'),
+http = require('http'),
+path = require('path'),
+fs = require('fs');
 
 var app = express();
 
@@ -43,9 +43,12 @@ if ('development' == app.get('env')) {
 	app.use(errorHandler());
 }
 
+
+var obj = JSON.parse(fs.readFileSync('config/local-db-info.json', 'utf8'));
+
 // database setup
 var dbCredentials = {
-	dbName : 'my_sample_db'
+	dbName : obj.dbname
 };
 
 if(process.env.VCAP_SERVICES) {
@@ -73,14 +76,13 @@ if(process.env.VCAP_SERVICES) {
 	// Alternately you could point to a local database here instead of a
 	// Bluemix service.
 
-	var obj = JSON.parse(fs.readFileSync('config/local-db-info.json', 'utf8'));
-
 	dbCredentials.host = obj.credentials.host;
 	dbCredentials.port = obj.credentials.port;
 	dbCredentials.user = obj.credentials.username;
 	dbCredentials.password = obj.credentials.password;
 	dbCredentials.url = obj.credentials.url;
 }
+
 
 cloudant = require('cloudant')(dbCredentials.url);
 
@@ -98,6 +100,59 @@ if(db==null){
 // routes setup
 app.get('/', routes.index);
 app.get('/alldata', allData.alldata);
+
+// api - get all data
+app.get('/api/alldata', function(request, response) {
+
+	console.log("Get method invoked.. ")
+
+	db = cloudant.use(dbCredentials.dbName);
+	var docList = [];
+	var i = 0;
+	db.list(function(err, body) {
+		if (!err) {
+			var len = body.rows.length;
+			console.log('total # of docs -> '+len);
+
+			if(len == 0) {
+				// return some error
+				var noDataResponse = {
+					success: true,
+					numOfRecords: 0,
+					records: []
+				}
+				response.write(JSON.stringify(noDataResponse));
+				response.end();
+			} else {
+				body.rows.forEach(function(document) {
+					db.get(document.id, { revs_info: true }, function(err, doc) {
+						if (!err) {
+							if (doc.insertionDateInSeconds != undefined) {
+								docList.push(doc);
+							}
+							i++;
+							if(i >= len) {
+								var responseData = {
+									success: true,
+									numOfRecords: docList.length,
+									records: docList
+								}
+								response.write(JSON.stringify(responseData));
+								console.log('ending response...');
+								response.end();
+							}
+						} else {
+							console.log(err);
+						}
+					});
+				});
+			}
+		} else {
+			console.log(err);
+		}
+	});
+
+});
 
 // server setup
 http.createServer(app).listen(app.get('port'), '0.0.0.0', function() {

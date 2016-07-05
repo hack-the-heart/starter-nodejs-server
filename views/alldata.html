@@ -5,36 +5,21 @@
 	<div class="container">
 		<!-- Static navbar -->
 		<%- include common/navbar.html %>
-    
-		<div class="col-md-6">
-			<table class="table">
+
+		<div id="allDataContainer">
+			<table id="allDataTable" class="table">
 				<thead>
 					<tr>
-						<th>#</th>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>Username</th>
+						<th>id</th>
+						<th>insertionDateInSeconds</th>
+						<th>dateInSeconds</th>
+						<th>healthObjType</th>
+						<th>sourceName</th>
+						<th>data</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<td>1</td>
-						<td>Mark</td>
-						<td>Otto</td>
-						<td>@mdo</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>Jacob</td>
-						<td>Thornton</td>
-						<td>@fat</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>Larry</td>
-						<td>the Bird</td>
-						<td>@twitter</td>
-					</tr>
+				<tbody id="allDataTableTBody">
+
 				</tbody>
 			</table>
 		</div>
@@ -47,6 +32,7 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 
 	<%- include common/footer.html %>
-	<script src="/scripts/index.js"></script>
+	<script type="text/javascript" src="/scripts/util.js"></script>
+	<script src="/scripts/alldata.js"></script>
 </body>
 </html>
