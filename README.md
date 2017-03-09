@@ -100,6 +100,8 @@ local-db-info.json filled in template:
  
 3. Follow the steps, starting from step #2 in the `CF - Command Line Interface` guide. Instead of using the source code from step 1, you will use the source code that you downloaded earlier.
 
+4. You can also develop locally by starting the server with `npm start`. The database will still be running on Bluemix, but a local instance of the server will allow you to build and deploy much faster (due to not waiting for your code to be pushed up to Bluemix). To do this, run `npm install` in the directory of your node js project to install all dependencies. Then run `npm start`. As long as you have your db credentials and other itmes setup, your server should be up and running. You can visit `localhost:3000" to confirm.
+
 ## Data Format
 
 Use this data format (below) when uploading data. The actual data values go inside the inner dictionary with the key `data`. This is to support multiple data values. For example, blood pressure contains a systolic and a diastolic value. 
