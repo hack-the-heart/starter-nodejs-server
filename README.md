@@ -8,9 +8,14 @@ We are using CloudantDB running on Bluemix for the database. Cloudant is built o
 We are using [`objective-cloudant`](https://github.com/cloudant/objective-cloudant) in our iOS project (and [`java-cloudant`](https://github.com/cloudant/java-cloudant) can be used for the android project). 
 
 ## Setting Up Your Project
+**Install Prerequisites**
+
+- NodeJS: https://nodejs.org/en/download/
+- Bluemix Command Line Interface: http://clis.ng.bluemix.net/ui/home.html
+
 **Download Source Code**
 
-1. Download the server/nodejs source code: https://github.com/health-tech-hack/starter-nodejs-server
+1. Download or fork this repo (using the links above)
 
 ***
 
@@ -60,24 +65,28 @@ We are using [`objective-cloudant`](https://github.com/cloudant/objective-clouda
 
 **NodeJS Server Setup**
 
-There are a few ways to get you codebase setup. We will get you setup using the command line interface. 
+There are a few ways to get your codebase setup on Bluemix. We will get you setup using the command line interface. 
 
-1. In your app dashboard, click on `Start Coding` (on the left navigation pane) and Select `CF - Command Line Interface`. 
+1. In your NodeJS app's dashboard, click on `Start Coding` (on the left navigation pane) and Select `CF - Command Line Interface`. 
 
 2. You will need to configure the source code that you downloaded above:
 
-  2a. Edit the manifest.yml file and update your app/host name to your app/host name instance. Under services, update your cloudant db service name to your Cloudant Db Instance name that you found above.
+  2a. Edit the `manifest.yml` file and update the app/host name to your app/host name instance that you created on Bluemix. 
   
-  2b. Create a folder called `config` and a file inside that folder called `local-db-info.json`. Edit the file and add the text below. Make sure to fill in your db credentials json obj where instructed. 
+  2b. Under services (in the `manifest.yml` file), update the cloudant db name to the name of the Cloudant DB Instance that you created above.
+  
+  2c. Create a folder called `config` and a file inside that folder called `local-db-info.json`. Edit the file and add the text below. Make sure to fill in your db credentials json obj where instructed. 
 
-template:
-```{
+```
+local-db-info.json unfilled template:
+{
   "credentials": {YOUR_CREDENTIALS_JSON_OBJ_HERE},
   "dbname": "sensor_data"
-}```
+}
 
-sample filled out template:
-```{
+
+local-db-info.json filled in template:
+{
 	"credentials": {
 		"username": "test-bluemix",
 		"password": "test",
@@ -86,10 +95,10 @@ sample filled out template:
 		"url": "https://test-bluemix:123@test-bluemix.cloudant.com"
 	},
 	"dbname": "sensor_data"
-}```
-
+}
+```
  
-3. Follow the steps, starting from step 2, in the `CF - Command Line Interface` guide. Instead of using the source code from step 1, you will use the source code that you downloaded earlier.
+3. Follow the steps, starting from step #2 in the `CF - Command Line Interface` guide. Instead of using the source code from step 1, you will use the source code that you downloaded earlier.
 
 ## Data Format
 
