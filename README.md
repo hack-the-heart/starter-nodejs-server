@@ -15,6 +15,7 @@ We are using [`objective-cloudant`](https://github.com/cloudant/objective-clouda
 ***
 
 **Bluemix Account Setup**
+
 1. Sign up for a Bluemix account: https://console.ng.bluemix.net/registration/
 
 2. From the [Bluemix Console](https://console.ng.bluemix.net/?direct=classic), click on `Catalog` (in the top Navigation Bar)
