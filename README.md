@@ -1,15 +1,5 @@
-# Node.js Cloudant Starter Overview
-
-The Node.js Cloudant Starter demonstrates how to use the Bluemix Cloudant NoSQL DB service. The app displays persisted files and lets the user upload new files or delete old files.
-
-## Decomposition Instructions
-
-* See app.js for how to obtain and use the Cloudant credentials as well as the file CRUD API
-* See public/scripts/index.js and public/scripts/util.js for how the front-end calls the back-end API
-
-***
-
 # Starter NodeJS & Cloudant
+The server reads from a CloudantDB and displays all data inside the DB. This is meant to be a starter server to get things started (the method used to display all the data is not efficent for large amounts of data).  
 
 **Cloudant DB**
 
@@ -24,20 +14,29 @@ We are using [`objective-cloudant`](https://github.com/cloudant/objective-clouda
 ***
 
 **Bluemix Account Setup**
-2. Sign up for a Bluemix account: https://console.ng.bluemix.net/registration/
-3. From the [Bluemix Console](https://console.ng.bluemix.net/?direct=classic), click on `Catalog` (in the top Navigation Bar)
-4. Click on `Node.js Cloudant DB Web Starter`, Enter your app name, and click on `Create`
-5. This will setup your Node JS Server and a instance of Cloudant DB.
+1. Sign up for a Bluemix account: https://console.ng.bluemix.net/registration/
+
+2. From the [Bluemix Console](https://console.ng.bluemix.net/?direct=classic), click on `Catalog` (in the top Navigation Bar)
+
+3. Click on `Node.js Cloudant DB Web Starter`, Enter your app name, and click on `Create`
+
+4. This will setup your Node JS Server and a instance of Cloudant DB.
 
 ***
 
 **Setup Cloudant DB**
 1. Go to your dashboard and click on your Cloudant DB instance, under the `Services` section. 
+
 2. Make a note of your Cloudant DB Instance name, e.g. `starter-app-cloudantNoSQLDB`
+
 3. Select `Service Credentials` from the left navigation pane, and Click on `Add Credentials`.
+
 4. Name your credentials and copy your credentials json text to a temporary location.
+
 5. Click on `Launch` on the top right corner to launch your Cloudant DB Admin panel. 
+
 6. Create a database called `sensor_data`
+
 7. Select the database and create a `Query Index`. This is located in the dropdown menu under `Design Document` (click the plus icon). Copy and paste the text below and click on `Create Index`. 
 
 ```
@@ -61,9 +60,12 @@ We are using [`objective-cloudant`](https://github.com/cloudant/objective-clouda
 There are a few ways to get you codebase setup. We will get you setup using the command line interface. 
 
 1. In your app dashboard, click on `Start Coding` (on the left navigation pane) and Select `CF - Command Line Interface`. 
-3. You will need to configure the source code that you downloaded above:
-  4. Edit the manifest.yml file and update your app/host name to your app/host name instance. Under services, update your cloudant db service name to your Cloudant Db Instance name that you found above.
-  5. Create a folder called `config` and a file inside that folder called `local-db-info.json`. Edit the file and add the text below. Make sure to fill in your db credentials json obj where instructed. 
+
+2. You will need to configure the source code that you downloaded above:
+
+  2a. Edit the manifest.yml file and update your app/host name to your app/host name instance. Under services, update your cloudant db service name to your Cloudant Db Instance name that you found above.
+  
+  2b. Create a folder called `config` and a file inside that folder called `local-db-info.json`. Edit the file and add the text below. Make sure to fill in your db credentials json obj where instructed. 
 
 template:
 ```{
@@ -84,7 +86,7 @@ sample filled out template:
 }```
 
  
-3) Follow the steps, starting from step 2, in the `CF - Command Line Interface` guide. Instead of using the source code from step 1, you will use the source code that you downloaded earlier.
+3. Follow the steps, starting from step 2, in the `CF - Command Line Interface` guide. Instead of using the source code from step 1, you will use the source code that you downloaded earlier.
 
 ## Data Format
 
