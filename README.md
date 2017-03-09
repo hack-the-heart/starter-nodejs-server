@@ -1,4 +1,4 @@
-# Starter NodeJS & Cloudant
+# Starter NodeJS & CloudantDB
 The server reads from a CloudantDB and displays all data inside the DB. This is meant to be a starter server to get things started (the method used to display all the data is not efficent for large amounts of data).  
 
 **Cloudant DB**
