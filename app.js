@@ -67,7 +67,7 @@ if(process.env.VCAP_SERVICES) {
 			break;
 		}
 	}
-} else{
+} else {
 	// console.warn('VCAP_SERVICES environment variable not set - data will be unavailable to the UI');
 
 	// For running this app locally you can get your Cloudant credentials
@@ -87,14 +87,29 @@ if(process.env.VCAP_SERVICES) {
 cloudant = require('cloudant')(dbCredentials.url);
 
 // check if DB exists if not create
-cloudant.db.create(dbCredentials.dbName, function (err, res) {
-	if (err) { console.log('could not create db ', err); }
+cloudant.db.get(dbCredentials.dbName, function(err, body) {
+	if (err) {
+		cloudant.db.create(dbCredentials.dbName, function (err, res) {
+			if (err) { 
+			console.log('could not create db ', err); 
+			return;
+			}
+
+			setupCloudantDB();
+		});
+
+		return;
+	}  
+
+	setupCloudantDB();
 });
 
-db = cloudant.use(dbCredentials.dbName);
-
-if(db==null){
-	console.warn('Could not find Cloudant credentials in VCAP_SERVICES environment variable - data will be unavailable to the UI');
+function setupCloudantDB() {
+	errorMsg = 'Could not find Cloudant credentials in VCAP_SERVICES environment variable - data will be unavailable to the UI';
+	db = cloudant.use(dbCredentials.dbName);
+	if(db==null) {
+		console.warn(errorMsg);
+	}
 }
 
 // routes setup
@@ -110,48 +125,49 @@ app.get('/api/alldata', function(request, response) {
 	var docList = [];
 	var i = 0;
 	db.list(function(err, body) {
-		if (!err) {
-			var len = body.rows.length;
-			console.log('total # of docs -> '+len);
-
-			if(len == 0) {
-				// return some error
-				var noDataResponse = {
-					success: true,
-					numOfRecords: 0,
-					records: []
-				}
-				response.write(JSON.stringify(noDataResponse));
-				response.end();
-			} else {
-				body.rows.forEach(function(document) {
-					db.get(document.id, { revs_info: true }, function(err, doc) {
-						if (!err) {
-							if (doc.insertionDateInSeconds != undefined) {
-								docList.push(doc);
-							}
-							i++;
-							if(i >= len) {
-								var responseData = {
-									success: true,
-									numOfRecords: docList.length,
-									records: docList
-								}
-								response.write(JSON.stringify(responseData));
-								console.log('ending response...');
-								response.end();
-							}
-						} else {
-							console.log(err);
-						}
-					});
-				});
-			}
-		} else {
+		if (err) {
 			console.log(err);
+			return;
 		}
-	});
 
+		var len = body.rows.length;
+		console.log('total # of docs -> '+len);
+
+		if(len == 0) {
+			// return some error
+			var noDataResponse = {
+				success: true,
+				numOfRecords: 0,
+				records: []
+			}
+			response.write(JSON.stringify(noDataResponse));
+			response.end();
+			return;
+		} 
+
+		body.rows.forEach(function(document) {
+			db.get(document.id, { revs_info: true }, function(err, doc) {
+				if (!err) {
+					if (doc.insertionDateInSeconds != undefined) {
+						docList.push(doc);
+					}
+					i++;
+					if(i >= len) {
+						var responseData = {
+							success: true,
+							numOfRecords: docList.length,
+							records: docList
+						}
+						response.write(JSON.stringify(responseData));
+						console.log('ending response...');
+						response.end();
+					}
+				} else {
+					console.log(err);
+				}
+			});
+		});
+	});
 });
 
 // server setup
