@@ -26,6 +26,7 @@ We are using [`objective-cloudant`](https://github.com/cloudant/objective-clouda
 ***
 
 **Setup Cloudant DB**
+
 1. Go to your dashboard and click on your Cloudant DB instance, under the `Services` section. 
 
 2. Make a note of your Cloudant DB Instance name, e.g. `starter-app-cloudantNoSQLDB`
