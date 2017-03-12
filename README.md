@@ -5,7 +5,7 @@ The server reads from a CloudantDB and displays all data inside the DB. This is 
 
 We are using CloudantDB running on Bluemix for the database. Cloudant is built on CouchDB and comes with its own [REST APIs](https://cloudant.com/product/cloudant-features/restful-api/) to access/add/manipulate data. However, there are third party Cloudant libraries that simplify interactions with the database.
 
-We are using [`objective-cloudant`](https://github.com/cloudant/objective-cloudant) in our iOS project (and [`java-cloudant`](https://github.com/cloudant/java-cloudant) can be used for the android project). 
+We are using [`swift-cloudant`](https://github.com/cloudant/swift-cloudant) in our iOS project (and [`java-cloudant`](https://github.com/cloudant/java-cloudant) can be used for the android project). 
 
 ## Setting Up Your Project
 **Install Prerequisites**
