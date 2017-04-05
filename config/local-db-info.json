@@ -1,0 +1,10 @@
+{
+  "credentials": {
+	  "username": "",
+	  "password": "",
+	  "host": "",
+	  "port": 443,
+	  "url": ""
+	},
+  "dbname": "sensor_data"
+}
