@@ -73,7 +73,7 @@ There are a few ways to get your codebase setup on Bluemix. We will get you setu
   
   1b. Under services (in the `manifest.yml` file), update the cloudant db name to the name of the Cloudant DB Instance that you created above.
   
-  1c. Create a folder called `config` and a file inside that folder called `local-db-info.json`. Edit the json file and add the text below. Make sure to fill in your db credentials json (that you copied earlier). 
+  1c. In your starter-nodejs-server, you will see a file called `local-db-info.json` in the `config/` folder. Edit the file and add in your credentials from the credentials json that you copied earlier. 
 ```
 local-db-info.json unfilled template:
 {
